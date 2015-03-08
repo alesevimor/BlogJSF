@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"    
+xmlns:p="http://primefaces.org/ui"
+>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <ui:repeat value="#{blog.listar()}" var="articulo">
+                    <p:panel id="basic" header="#{articulo.titulo}" footer="Escrito por: #{articulo.autor}" style="margin-bottom:20px; margin-left: 70px; width: 75%;">
+                        <h:panelGrid columns="1">
+                            <h:outputText value="#{articulo.contenido}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </ui:repeat>
+            </h:form>
+            <h:form id="InsertarArticulos">
+                <p:panel id="panel" header="Añadir un nuevo articulo" style="margin-top: 10px;margin-bottom:10px;width:53%;margin-left: 70px;" toggleable="true" closable="false" toggleSpeed="500">
+                    <p:messages id="messages" />
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="titulo" value="Titulo:" />
+                        <p:inputText id="titulo" value="#{blog.articulo.titulo}" required="true" label="Titulo">
+                            <f:validateLength minimum="2" />
+                        </p:inputText>
+                        <p:message for="titulo" />
+                        <p:outputLabel for="editor" value="Contenido:" />
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{blog.articulo.contenido}" width="600" />
+                    </h:panelGrid>
+                        <p:commandButton value="Añadir" action="#{blog.añadir()}" update="panel" icon="ui-icon-disk" />
+                        <p:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />     
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"    
+xmlns:p="http://primefaces.org/ui"
+>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <h2>Lista de autores del Blog</h2>
+            <h:form>
+                <p:dataTable id="tbl" var="autor" value="#{autorMg.listar()}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true" rows="10" style="margin-bottom:20px" selection="#{autorMg.autor}" selectionMode="single" rowKey="#{autor.id}">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{autor.id}" />
+                    </p:column>                    
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Usuario" />
+                        </f:facet>
+                        <h:outputText value="#{autor.usuario}" />
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{autor.nombre}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Apellidos" />
+                        </f:facet>
+                        <h:outputText value="#{autor.apellidos}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Operaciones" />
+                        </f:facet>
+                        <p:commandLink value="Borrar" action="#{autorMg.borrar(autor)}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
